@@ -29,8 +29,7 @@ if (params.library != "paired" && params.library != "single") {
 }
 
 if (! params.input_files && ! params.input_fastq1) {
-  exit 1, "Neither --input_files or --input_fastq1 are provided!, please  specify at 
-  least one of these parameters! with full path to the fastq file"
+  exit 1, "Neither --input_files or --input_fastq1 are provided!, please  specify at least one of these parameters! with full path to the fastq file"
 }
 else if (params.input_files && params.input_fastq1) {
   exit 1, "Both --input_files and --input_fastq1 are provided! Please, provide only one."
