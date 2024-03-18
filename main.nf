@@ -2,6 +2,8 @@
 
 nextflow.enable.dsl = 2
 
+//Import all the modules needed for this pipeline
+
 include { FASTP_PAIRED; FASTP_SINGLE } from './modules/01_fastp'
 include { BWA_ALN; BWA_ALN as BWA_ALN_2; BWA_SAMPE; BWA_SAMSE; BWA_ALN_INCEPTION } from './modules/02_bwa_aln'
 include { BWA_MEM; BWA_MEM_SE } from './modules/02_bwa_mem'
@@ -15,18 +17,20 @@ if (params.help) {
 }
 
 // checks that required inputs are provided
+//chose the reference genome
 if (!params.reference) {
-  exit 1, "Reference genome not specified! Please, provide --reference"
+  exit 1, "Reference genome not specified! Please, provide --reference /fullpath to the/.fa|.fasta file"
 }
 if (params.algorithm != "aln" && params.algorithm != "mem" && params.algorithm != "mem2" && params.algorithm != "star") {
-    exit 1, "Unsupported alignment algorithm ${params.algorithm}!"
+    exit 1, "Unsupported alignment algorithm ${params.algorithm}!, please select any of these aln | mem| mem2 | star"
 }
 if (params.library != "paired" && params.library != "single") {
-    exit 1, "Unsupported library preparation ${params.library}!"
+    exit 1, "Unsupported library preparation ${params.library}!, please select  'paired' or 'single'"
 }
 
 if (! params.input_files && ! params.input_fastq1) {
-  exit 1, "Neither --input_files or --input_fastq1 are provided!"
+  exit 1, "Neither --input_files or --input_fastq1 are provided!, please  specify at 
+  least one of these parameters! with full path to the fastq file"
 }
 else if (params.input_files && params.input_fastq1) {
   exit 1, "Both --input_files and --input_fastq1 are provided! Please, provide only one."
@@ -135,5 +139,6 @@ workflow {
     else {
       exit 1, "Unsupported configuration!"
     }
+    // Index the output bam files
     INDEX_BAM(output_bams)
 }
