@@ -3,8 +3,7 @@
 nextflow.enable.dsl = 2
 
 include { FASTP_PAIRED; FASTP_SINGLE } from './modules/01_fastp'
-include { BWA_ALN; BWA_ALN as BWA_ALN_2; BWA_SAMPE; BWA_SAMSE; BWA_ALN_INCEPTION } from './modules/02_bwa_mem.nf'
-
+include { BWA_MEM; BWA_MEM_SE } from './modules/02_bwa_mem'
 
 if (params.help) {
     log.info params.help_message
