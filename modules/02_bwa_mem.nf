@@ -6,7 +6,8 @@ process BWA_MEM {
     publishDir params.output, mode: "copy", pattern:"${name}.bam"
     publishDir "${params.output}/${name}/", mode: "copy", pattern: "software_versions.*"
 
-    conda (params.enable_conda ? "bioconda::bwa=0.7.17 bioconda::samtools=1.12" : null)
+    //conda (params.enable_conda ? "bioconda::bwa=0.7.17 bioconda::samtools=1.12" : null)
+    
 
     input:
       tuple val(name), file(fastq1), file(fastq2)
