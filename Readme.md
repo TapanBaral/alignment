@@ -1,0 +1,1 @@
+## This is simple workflow to align fastq files to the reference genome 
